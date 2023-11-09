@@ -1,0 +1,24 @@
+{
+  "rules": [
+    " All students from schools and colleges(including HSC batch-2022) and corresponding institutions such as polytechnic institutes(4th year and below) are eligible to participate. "
+  ],
+  "fests": [
+    {
+      "title": "INIT 3.0",
+      "image": "",
+      "desc": "Get ready for a thrilling tech fest experience, as Notre Dame Information Technology Club (NDITC) presents NDITC Init 3.0. After a long break due to the COVID-19 pandemic, it's time to celebrate and appreciate advancing technology and the brilliant minds behind it. This year's event is a radical redesign from previous ones, with numerous events for tech enthusiasts to showcase their creative and technical abilities. From Spot N Go and Soccer Wheels to Robo War, we've got you covered. Join us on the 2nd to 4th of March, 2023, for a tech fest like no other. Expect to be challenged and amazed as we aim to glitch your minds and offer super big prizes for the winners. Mark your calendars and get ready to be a part of NDITC Init 3.0."
+    },
+    {
+      "title": "INIT 2.0",
+      "image": "/Images/banners/init2.jpg",
+      "desc": "NDITC_init 2019 was a celebration of advancing technology and the genius minds behind it. The event had a radical redesign from the previous year's, with a range of events such as Spot N Go, Clash Bots, Copter Rush, and Truss Challenge where tech enthusiasts could showcase their creative and technical talents. The event was held on 13-14 September 2019 and lived up to its promise of being an unforgettable experience. Attendees were challenged with mind-glitching events, but the big prizes for the winners made it all worth it. The event provided a glimpse into the future of technology and the innovations it brought. It was a memorable celebration of all things tech."
+    },
+    {
+      "title": "INIT 1.0",
+      "image": "/Images/banners/init1.jpg",
+      "desc": "On November 23rd and 24th, 2018, participants gathered for the exciting NDITC_init 2018 event. A range of events took place, including workshops, robot competitions, and presentations, providing opportunities for all attendees to showcase their skills and participate in challenging competitions. The highlight of the event was the first-ever college-level Hackathon, where tech enthusiasts and future leaders came together to showcase their abilities. This unforgettable experience was a success and will always be remembered as a testament to the talent and drive of those who participated."
+    }
+  ],
+
+  "club": {}
+}

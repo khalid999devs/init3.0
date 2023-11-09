@@ -1,0 +1,1 @@
+{succeed:false,fullTime:"8-2-2023 ,time-20:50",mode:"eventVerified",email:"bdentrkw@gmail.com"},

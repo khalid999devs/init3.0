@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Khalid Ahammed",
+    "image": "/Images/developers/Khalid.jpg",
+    "role": "Full Stack build (1st version)",
+    "clgRoll": "12207055",
+    "position": "President, Department of Web and App development",
+    "socialLinks": [
+      {
+        "title": "Facebook",
+        "icon": "facebook",
+        "link": "https://www.facebook.com/khalid.ahammed.39"
+      },
+      {
+        "title": "Website",
+        "icon": "website",
+        "link": "https://khalidahammed.com"
+      }
+    ]
+  }
+]

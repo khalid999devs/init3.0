@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Ashiqul Islam",
+    "image": "/Images/setters/Ashiqul-Islam.jpg",
+    "info": "Software Engineer - Google",
+    "socialLinks": []
+  },
+  {
+    "name": "Fahim Shahriar Shakkhor",
+    "image": "/Images/setters/Fahim-Shahriar-Shakkhor.jpg",
+    "info": "Software Engineer, Google ",
+    "socialLinks": []
+  },
+  {
+    "name": "Adnan Toky",
+    "image": "/Images/setters/Adnan-Toky.jpg",
+    "info": "RUET CSE",
+    "socialLinks": []
+  },
+  {
+    "name": "Jubayer Nirjhor",
+    "image": "/Images/setters/Jubayer-Nirjhor.jpg",
+    "info": "DU CSE",
+    "socialLinks": []
+  }
+]
