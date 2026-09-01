@@ -1,6 +1,6 @@
 # INIT 3.0
 
-**Run a complete student technology festival from one application.**
+**Manage every event in a festival—or any large occasion—from one platform.**
 
 INIT 3.0 brings event discovery, participant registration, team management,
 payments, content administration, and QR-assisted check-in into a single
@@ -21,15 +21,27 @@ INIT 3.0 keeps that work connected:
 | Visitors | Discover events, read rules and notices, browse festival media, and contact the organizers |
 | Participants | Create an account, join individual or team events, submit payment details, and track their event status |
 | Campus ambassadors | Register with a referral code, represent the festival, and follow their referral score |
-| Organizers | Run events, participants, payments, communications, content, gallery media, sponsors, and access permissions |
+| Organizers | Manage events, participants, payments, communications, content, gallery media, sponsors, and access permissions |
 | Check-in operators | Find or scan a participant and update attendance for the correct event |
 
 > [!NOTE]
 > This repository is a full-stack demonstration and engineering reference. The seeded organizations are example technology partners and do not imply real sponsorship. Email and SMS flows require credentials from your own providers.
 
+## Project history
+
+INIT 3.0 was originally built to run the **INIT 3.0 National Festival**, organized by the **Notre Dame Information Technology Club (NDITC)** at **Notre Dame College, Dhaka, Bangladesh**. Held from **2–4 March 2023**, the festival marked INIT's return after the COVID-era break with a redesigned program spanning robotics events such as Spot N Go, Soccer Wheels, and Robo War alongside olympiads, programming contests, and other technology competitions.
+
+More than **5,000 students from across Bangladesh** participated in the festival. The platform connected its public event information, registration, participant records, teams, payments, administration, and QR-assisted check-in in one system.
+
+For Notre Dame College, it was the first unified festival-management platform of its kind. After the national festival ended, the live website was retired as planned. Its structure and the lessons learned from running it became a foundation and source of inspiration for the NDITC festival platforms that followed.
+
+This repository keeps that original system available as a real-world engineering reference. Its deterministic demo database recreates the application locally without exposing historical participant information or production credentials.
+
+**Explore the original event:** [Visit INIT 3.0 on Facebook ↗](https://fb.me/e/3pfkfvZvt) · [Read NDITC's festival history](https://init.nditc.net/about)
+
 ## Product tour
 
-The following views show the seeded application across its public, participant, organizer, and check-in experiences.
+These views show the seeded application from the visitor, participant, organizer, and check-in perspectives.
 
 ![Animated tour of the public and administrator experiences](./ss/product-tour.gif)
 
@@ -45,7 +57,7 @@ _Public discovery → registration → organizer operations._
     <td width="50%"><img src="./ss/event-details.png" alt="Event details" /></td>
   </tr>
   <tr>
-    <td><strong>Discover events</strong><br /><sub>A live catalog grouped around the festival program.</sub></td>
+    <td><strong>Discover events</strong><br /><sub>Browse the complete festival program in one catalog.</sub></td>
     <td><strong>Understand the event</strong><br /><sub>Schedule, venue, fee, format, rules, and registration entry point.</sub></td>
   </tr>
   <tr>
@@ -78,7 +90,7 @@ _Public discovery → registration → organizer operations._
     <td width="50%"><img src="./ss/admin-settings.png" alt="Platform settings" /></td>
   </tr>
   <tr>
-    <td><strong>Shape the event catalog</strong><br /><sub>Control registration, team size, price, fields, media, and submissions.</sub></td>
+    <td><strong>Configure events</strong><br /><sub>Control registration, team size, price, fields, media, and submissions.</sub></td>
     <td><strong>Manage the public site</strong><br /><sub>Update permissions, notices, FAQs, sponsors, and shared page content.</sub></td>
   </tr>
 </table>
@@ -269,7 +281,7 @@ if state is 0        → READY_TO_CHECK_IN
                        then update state from 0 to 1
 ```
 
-The client reads the rear-facing camera through `react-qr-reader`, rejects malformed or unusually long results, and sends the decoded value to `POST /api/qr/scan/:code`. The API resolves `clientQR`, follows either `parId` or `CAId` to the correct identity table, and returns the attendee, team, payment, and event state needed by the operator. For an automatic camera scan that is ready, the client calls `POST /api/qr/updateEvent/:code`; the API constructs an escaped MySQL JSON path and applies `JSON_REPLACE` with bound values. An unchanged row is treated as an already-applied or unmatched update instead of silently reporting another success.
+The client reads the rear-facing camera through `react-qr-reader`, rejects malformed or unusually long results, and sends the decoded value to `POST /api/qr/scan/:code`. The API resolves `clientQR`, follows either `parId` or `CAId` to the correct identity table, and returns the attendee, team, payment, and event state needed by the operator. When a camera scan is ready for check-in, the client calls `POST /api/qr/updateEvent/:code`; the API constructs an escaped MySQL JSON path and applies `JSON_REPLACE` with bound values. An unchanged row is treated as an already-applied or unmatched update instead of silently reporting another success.
 
 ```mermaid
 sequenceDiagram
@@ -342,7 +354,7 @@ The model design keeps account identity separate from event participation state:
 
 ## Demo dataset
 
-The deterministic seed is broad enough to show real dashboard states without manual data entry:
+The deterministic seed provides realistic dashboard states without requiring manual data entry:
 
 - 4 events across programming, innovation, security, and creative categories
 - 6 participants covering solo/team, free/paid, verified/pending, and multi-event cases
@@ -351,7 +363,7 @@ The deterministic seed is broad enough to show real dashboard states without man
 - 3 curated gallery records and 4 example technology partners
 - 2 administrators and 1 QR-scanner account
 
-Profile and event images use repository-owned demo assets. Sponsor logo URLs are intentionally left external to demonstrate absolute-media handling.
+Profile and event images use repository-owned demo assets. Sponsor logos remain external to demonstrate how the application handles remote media.
 
 ## Repository map
 
@@ -389,7 +401,7 @@ cd client
 npm run build
 ```
 
-The seeded application has also been smoke-tested against:
+The seeded application has also been smoke-tested across:
 
 - Public settings, events, notices, FAQ, sponsors, and gallery endpoints
 - Admin login and session validation
