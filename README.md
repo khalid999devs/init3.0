@@ -1,6 +1,6 @@
 # INIT 3.0
 
-**Manage every event in a festival - or any large occasion - from one platform.**
+**Manage festivals, events, and contests from one unified platform.**
 
 INIT 3.0 brings event discovery, participant registration, team management,
 payments, content administration, and QR-assisted check-in into a single
