@@ -2,12 +2,6 @@
 
 **Run a complete student technology festival from one application.**
 
-![React 17](https://img.shields.io/badge/React-17.0-61DAFB?logo=react&logoColor=white)
-![Express 4](https://img.shields.io/badge/Express-4.17-111111?logo=express&logoColor=white)
-![MySQL 8](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
-![Material UI 5](https://img.shields.io/badge/Material_UI-5.6-007FFF?logo=mui&logoColor=white)
-[![MIT License](https://img.shields.io/badge/License-MIT-2ea44f)](./LICENSE)
-
 INIT 3.0 brings event discovery, participant registration, team management,
 payments, content administration, and QR-assisted check-in into a single
 full-stack platform.
@@ -35,11 +29,11 @@ INIT 3.0 keeps that work connected:
 
 ## Product tour
 
-The screenshots below come from the seeded local application, not design mockups.
+The following views show the seeded application across its public, participant, organizer, and check-in experiences.
 
 ![Animated tour of the public and administrator experiences](./ss/product-tour.gif)
 
-_Public discovery → registration → organizer operations. Each frame is held for inspection; expand the galleries below for the original Retina captures._
+_Public discovery → registration → organizer operations._
 
 <details>
 <summary><strong>Public and participant experience</strong></summary>
@@ -95,7 +89,7 @@ _Public discovery → registration → organizer operations. Each frame is held 
 <summary><strong>Mobile QR check-in</strong></summary>
 <br />
 
-<img src="./ss/qr-scanner-iphone-17-pro.png" alt="QR check-in scanner showing a seeded attendee on an iPhone 17 Pro viewport" width="402" />
+<img src="./ss/qr-scanner-iphone-17-pro.png" alt="Mobile QR check-in scanner showing a seeded attendee" width="402" />
 
 **Scan and verify at the door**
 
@@ -365,7 +359,6 @@ Profile and event images use repository-owned demo assets. Sponsor logo URLs are
 init3.0/
 ├── client/
 │   ├── public/                 # Static assets and public JSON content
-│   ├── scripts/                # Playwright screenshot and visual-QA runner
 │   └── src/
 │       ├── Admin/              # Admin shell, dashboard, and operations pages
 │       ├── Client/             # Public site and participant portal
@@ -382,7 +375,7 @@ init3.0/
 │   ├── scripts/seed-demo.js    # Guarded deterministic demo seed
 │   ├── uploads/                # Runtime-uploaded media
 │   └── index.js                # Express composition and startup
-├── ss/                         # Screenshots used in this README
+├── ss/                         # Product tour media
 ├── LICENSE
 └── README.md
 ```
@@ -402,35 +395,8 @@ The seeded application has also been smoke-tested against:
 - Admin login and session validation
 - Authenticated event, participant, CA, contact, and QR-account endpoints
 - MySQL-backed dashboard data and absolute/local media URL handling
-- A 13-screen Playwright tour covering public, authenticated admin, and mobile QR routes
 
 The project does not yet include a full automated test suite. The current repository validation is a production React build plus API and authenticated-flow smoke testing.
-
-### Visual QA and screenshot refresh
-
-With the frontend and API running, reproduce the README images through the real UI:
-
-```bash
-cd client
-npm run capture:screenshots
-npm run capture:qr-mobile
-```
-
-The runner uses `playwright-core` with an installed Google Chrome, signs in through `/adminLogin`, and writes the screenshots to `ss/`. Its default viewport is `1470 × 956` at a `2×` device scale—the effective display workspace used by a 13-inch M4 MacBook Air—so each PNG is `2940 × 1912`.
-
-The QR command signs in through `/qrLogin`, uses the seeded scanner account, activates a synthetic camera feed, and writes `ss/qr-scanner-iphone-17-pro.png`. It uses a `402 × 874` viewport at `3×` scale, producing the iPhone 17 Pro's `1206 × 2622` portrait output without accessing a real camera.
-
-On another system, point the runner to Chrome and optionally override the capture geometry:
-
-```bash
-CHROME_PATH="/path/to/chrome" \
-SCREENSHOT_WIDTH=1440 \
-SCREENSHOT_HEIGHT=900 \
-SCREENSHOT_SCALE=2 \
-npm run capture:screenshots
-```
-
-Treat the capture as failed if its terminal summary reports visible broken images, console errors, failed requests, or HTTP responses at `400` or above.
 
 ## Troubleshooting
 
