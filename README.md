@@ -1,28 +1,20 @@
-<div align="center">
-
 # INIT 3.0
 
 **Run a complete student technology festival from one application.**
+
+![React 17](https://img.shields.io/badge/React-17.0-61DAFB?logo=react&logoColor=white)
+![Express 4](https://img.shields.io/badge/Express-4.17-111111?logo=express&logoColor=white)
+![MySQL 8](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![Material UI 5](https://img.shields.io/badge/Material_UI-5.6-007FFF?logo=mui&logoColor=white)
+[![MIT License](https://img.shields.io/badge/License-MIT-2ea44f)](./LICENSE)
 
 INIT 3.0 brings event discovery, participant registration, team management,
 payments, content administration, and QR-assisted check-in into a single
 full-stack platform.
 
-<p>
-  <img alt="React 17" src="https://img.shields.io/badge/React-17.0-61DAFB?logo=react&logoColor=white" />
-  <img alt="Express 4" src="https://img.shields.io/badge/Express-4.17-111111?logo=express&logoColor=white" />
-  <img alt="MySQL 8" src="https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white" />
-  <img alt="Material UI 5" src="https://img.shields.io/badge/Material_UI-5.6-007FFF?logo=mui&logoColor=white" />
-  <a href="./LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-2ea44f" /></a>
-</p>
+**Documentation:** [Product tour](#product-tour) · [Quick start](#quick-start) · [Architecture](#architecture) · [Demo accounts](#demo-accounts)
 
-[Explore the product](#product-tour) · [Run it locally](#quick-start) · [Understand the architecture](#architecture) · [Use the demo accounts](#demo-accounts)
-
-</div>
-
-<p align="center">
-  <img src="./ss/landing-hero.png" alt="INIT 3.0 landing page" width="100%" />
-</p>
+![INIT 3.0 landing page](./ss/landing-hero.png)
 
 ## Why INIT 3.0 exists
 
@@ -45,10 +37,9 @@ INIT 3.0 keeps that work connected:
 
 The screenshots below come from the seeded local application, not design mockups.
 
-<p align="center">
-  <img src="./ss/product-tour.gif" alt="Animated tour of the public and administrator experiences" width="100%" />
-</p>
-<p align="center"><sub>Public discovery → registration → organizer operations. Each frame is held for inspection; expand the galleries below for the original Retina captures.</sub></p>
+![Animated tour of the public and administrator experiences](./ss/product-tour.gif)
+
+_Public discovery → registration → organizer operations. Each frame is held for inspection; expand the galleries below for the original Retina captures._
 
 <details>
 <summary><strong>Public and participant experience</strong></summary>
@@ -60,16 +51,16 @@ The screenshots below come from the seeded local application, not design mockups
     <td width="50%"><img src="./ss/event-details.png" alt="Event details" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>Discover events</strong><br /><sub>A live catalog grouped around the festival program.</sub></td>
-    <td align="center"><strong>Understand the event</strong><br /><sub>Schedule, venue, fee, format, rules, and registration entry point.</sub></td>
+    <td><strong>Discover events</strong><br /><sub>A live catalog grouped around the festival program.</sub></td>
+    <td><strong>Understand the event</strong><br /><sub>Schedule, venue, fee, format, rules, and registration entry point.</sub></td>
   </tr>
   <tr>
     <td width="50%"><img src="./ss/gallery.png" alt="Festival gallery" /></td>
     <td width="50%"><img src="./ss/participant-registration.png" alt="Participant registration" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>Browse festival moments</strong><br /><sub>A responsive gallery driven by admin-managed records.</sub></td>
-    <td align="center"><strong>Create a participant account</strong><br /><sub>One identity for individual and team-based participation.</sub></td>
+    <td><strong>Browse festival moments</strong><br /><sub>A responsive gallery driven by admin-managed records.</sub></td>
+    <td><strong>Create a participant account</strong><br /><sub>One identity for individual and team-based participation.</sub></td>
   </tr>
 </table>
 
@@ -85,16 +76,16 @@ The screenshots below come from the seeded local application, not design mockups
     <td width="50%"><img src="./ss/admin-participants.png" alt="Participant operations" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>See the operation at a glance</strong><br /><sub>Registrations, ambassador activity, notices, messages, and admins.</sub></td>
-    <td align="center"><strong>Work with participant records</strong><br /><sub>Teams, payments, submissions, and per-event attendance in one table.</sub></td>
+    <td><strong>See the operation at a glance</strong><br /><sub>Registrations, ambassador activity, notices, messages, and admins.</sub></td>
+    <td><strong>Work with participant records</strong><br /><sub>Teams, payments, submissions, and per-event attendance in one table.</sub></td>
   </tr>
   <tr>
     <td width="50%"><img src="./ss/admin-events.png" alt="Event administration" /></td>
     <td width="50%"><img src="./ss/admin-settings.png" alt="Platform settings" /></td>
   </tr>
   <tr>
-    <td align="center"><strong>Shape the event catalog</strong><br /><sub>Control registration, team size, price, fields, media, and submissions.</sub></td>
-    <td align="center"><strong>Manage the public site</strong><br /><sub>Update permissions, notices, FAQs, sponsors, and shared page content.</sub></td>
+    <td><strong>Shape the event catalog</strong><br /><sub>Control registration, team size, price, fields, media, and submissions.</sub></td>
+    <td><strong>Manage the public site</strong><br /><sub>Update permissions, notices, FAQs, sponsors, and shared page content.</sub></td>
   </tr>
 </table>
 
@@ -104,10 +95,11 @@ The screenshots below come from the seeded local application, not design mockups
 <summary><strong>Mobile QR check-in</strong></summary>
 <br />
 
-<p align="center">
-  <img src="./ss/qr-scanner-iphone-17-pro.png" alt="QR check-in scanner showing a seeded attendee on an iPhone 17 Pro viewport" width="402" />
-</p>
-<p align="center"><strong>Scan and verify at the door</strong><br /><sub>The dedicated operator flow detects repeat scans and surfaces identity, institution, team, and event attendance in one mobile view.</sub></p>
+<img src="./ss/qr-scanner-iphone-17-pro.png" alt="QR check-in scanner showing a seeded attendee on an iPhone 17 Pro viewport" width="402" />
+
+**Scan and verify at the door**
+
+The dedicated operator flow detects repeat scans and surfaces identity, institution, team, and event attendance in one mobile view.
 
 </details>
 
