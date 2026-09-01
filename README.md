@@ -1,6 +1,6 @@
 # INIT 3.0
 
-**Manage every event in a festival—or any large occasion—from one platform.**
+**Manage every event in a festival - or any large occasion - from one platform.**
 
 INIT 3.0 brings event discovery, participant registration, team management,
 payments, content administration, and QR-assisted check-in into a single
@@ -16,13 +16,13 @@ A technology festival is more than a list of events. Organizers have to publish 
 
 INIT 3.0 keeps that work connected:
 
-| Audience | What they can do |
-| --- | --- |
-| Visitors | Discover events, read rules and notices, browse festival media, and contact the organizers |
-| Participants | Create an account, join individual or team events, submit payment details, and track their event status |
-| Campus ambassadors | Register with a referral code, represent the festival, and follow their referral score |
-| Organizers | Manage events, participants, payments, communications, content, gallery media, sponsors, and access permissions |
-| Check-in operators | Find or scan a participant and update attendance for the correct event |
+| Audience           | What they can do                                                                                                |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Visitors           | Discover events, read rules and notices, browse festival media, and contact the organizers                      |
+| Participants       | Create an account, join individual or team events, submit payment details, and track their event status         |
+| Campus ambassadors | Register with a referral code, represent the festival, and follow their referral score                          |
+| Organizers         | Manage events, participants, payments, communications, content, gallery media, sponsors, and access permissions |
+| Check-in operators | Find or scan a participant and update attendance for the correct event                                          |
 
 > [!NOTE]
 > This repository is a full-stack demonstration and engineering reference. The seeded organizations are example technology partners and do not imply real sponsorship. Email and SMS flows require credentials from your own providers.
@@ -199,10 +199,10 @@ cd client
 npm start
 ```
 
-| Service | Local URL |
-| --- | --- |
+| Service         | Local URL               |
+| --------------- | ----------------------- |
 | Web application | `http://localhost:3000` |
-| REST API | `http://localhost:8001` |
+| REST API        | `http://localhost:8001` |
 
 The development API address is defined in `client/src/data/requests.js`. Change it when the client and API are deployed to different hosts.
 
@@ -210,11 +210,11 @@ The development API address is defined in `client/src/data/requests.js`. Change 
 
 `npm run seed:demo` creates the following local-only accounts:
 
-| Experience | Login | Password | Where to sign in |
-| --- | --- | --- | --- |
-| Admin console | `demo_admin` | `DemoAdmin123!` | `/adminLogin` |
-| Participant portal | `demo@init3.local` | `DemoUser123!` | `/login` using **Participant** mode |
-| QR scanner | `demo_scanner` | `DemoUser123!` | `/qrLogin` |
+| Experience         | Login              | Password        | Where to sign in                    |
+| ------------------ | ------------------ | --------------- | ----------------------------------- |
+| Admin console      | `demo_admin`       | `DemoAdmin123!` | `/adminLogin`                       |
+| Participant portal | `demo@init3.local` | `DemoUser123!`  | `/login` using **Participant** mode |
+| QR scanner         | `demo_scanner`     | `DemoUser123!`  | `/qrLogin`                          |
 
 The seed also creates a second administrator named `event_manager` for multi-admin dashboard states.
 
@@ -319,14 +319,14 @@ For a high-volume production gate, the next hardening steps would be to paramete
 
 The model design keeps account identity separate from event participation state:
 
-| Model group | Responsibility |
-| --- | --- |
-| `Participants`, `CAs` | Identity, profile, login, and contact data |
-| `ParEvents` | Event status, attendance, teams, fees, transactions, submissions, and roll numbers |
-| `Events`, `Teams` | Contest configuration and team membership |
-| `PageSettings`, `Notices`, `Faq` | Public content and feature permissions |
-| `Gallery`, `Sponsors` | Public media and partner presentation |
-| `Admin`, `QRAdmins`, `Contact` | Organizer access, scanner access, and inbound inquiries |
+| Model group                      | Responsibility                                                                     |
+| -------------------------------- | ---------------------------------------------------------------------------------- |
+| `Participants`, `CAs`            | Identity, profile, login, and contact data                                         |
+| `ParEvents`                      | Event status, attendance, teams, fees, transactions, submissions, and roll numbers |
+| `Events`, `Teams`                | Contest configuration and team membership                                          |
+| `PageSettings`, `Notices`, `Faq` | Public content and feature permissions                                             |
+| `Gallery`, `Sponsors`            | Public media and partner presentation                                              |
+| `Admin`, `QRAdmins`, `Contact`   | Organizer access, scanner access, and inbound inquiries                            |
 
 `Participants` and `CAs` each have a one-to-one Sequelize association with `ParEvents`. That common event-state record lets the application reuse participation logic while preserving the differences between participant and ambassador accounts.
 
@@ -341,16 +341,16 @@ The model design keeps account identity separate from event participation state:
 
 ## API map
 
-| Namespace | Responsibility | Access |
-| --- | --- | --- |
-| `/api/events` | Event discovery and event administration | Public reads, admin writes |
-| `/api/client` | Accounts, profiles, participation, teams, payments, and submissions | Participant/CA or admin, depending on operation |
-| `/api/admin` | Admin authentication and platform settings | Mixed |
-| `/api/adAction` | Permissions, exports, ambassador controls, and attendance actions | Admin |
-| `/api/notice`, `/api/faq`, `/api/sponsor` | Public content and protected management actions | Public reads, admin writes |
-| `/api/admin/gallery` | Gallery records and uploaded media | Public reads, admin writes |
-| `/api/contact` | Public inquiries and organizer replies | Mixed |
-| `/api/qr` | Scanner accounts, search, scanning, and event updates | QR operator or admin |
+| Namespace                                 | Responsibility                                                      | Access                                          |
+| ----------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------- |
+| `/api/events`                             | Event discovery and event administration                            | Public reads, admin writes                      |
+| `/api/client`                             | Accounts, profiles, participation, teams, payments, and submissions | Participant/CA or admin, depending on operation |
+| `/api/admin`                              | Admin authentication and platform settings                          | Mixed                                           |
+| `/api/adAction`                           | Permissions, exports, ambassador controls, and attendance actions   | Admin                                           |
+| `/api/notice`, `/api/faq`, `/api/sponsor` | Public content and protected management actions                     | Public reads, admin writes                      |
+| `/api/admin/gallery`                      | Gallery records and uploaded media                                  | Public reads, admin writes                      |
+| `/api/contact`                            | Public inquiries and organizer replies                              | Mixed                                           |
+| `/api/qr`                                 | Scanner accounts, search, scanning, and event updates               | QR operator or admin                            |
 
 ## Demo dataset
 
