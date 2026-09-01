@@ -5,6 +5,7 @@ const app = express()
 const db = require('./models')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const path = require('path')
 
 //cors
 const whitelist = process.env.REMOTE_CLIENT_APP.split(',')
@@ -22,6 +23,10 @@ const corOptions = {
 app.use(cors(corOptions))
 
 app.use('/uploads', express.static(__dirname + '/uploads'))
+app.use(
+  '/demo-images',
+  express.static(path.resolve(__dirname, '../client/public/Images'))
+)
 //middlewares
 app.use(express.json())
 app.use(cookieParser('secret'))

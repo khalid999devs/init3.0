@@ -8,6 +8,7 @@ const {
 const mailer = require('../utils/sendMail')
 const deleteFile = require('../utils/deleteFile')
 const sendSMS = require('../utils/sendSMS')
+const jsonPathForKey = require('../utils/jsonPath')
 
 const findEvent = async (mode, eventName) => {
   if (mode !== 'par')
@@ -259,9 +260,18 @@ const paidVerify = async (req, res) => {
   const { type, eventName } = req.body
 
   if (type === true || type === false) {
-    const [metadata] = await sequelize.query(`UPDATE parevents
-SET paidEvent=JSON_REPLACE(paidEvent,"$.${eventName}",${type ? 1 : 0})
-WHERE parId='${parId}';`)
+    const [metadata] = await sequelize.query(
+      `UPDATE parevents
+SET paidEvent = JSON_REPLACE(paidEvent, :jsonPath, :status)
+WHERE parId = :parId;`,
+      {
+        replacements: {
+          jsonPath: jsonPathForKey(eventName),
+          status: type ? 1 : 0,
+          parId,
+        },
+      }
+    )
 
     if (metadata.changedRows === 0) {
       return res.json({

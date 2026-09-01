@@ -8,6 +8,7 @@ const { sign } = require('jsonwebtoken')
 const { hashSync, compare } = require('bcryptjs')
 const saltRounds = process.env.SALT
 const { attachTokenToResponse } = require('../utils/createToken')
+const jsonPathForKey = require('../utils/jsonPath')
 
 const qrAdminReg = async (req, res) => {
   const { userName, password, event } = req.body
@@ -160,9 +161,18 @@ const updateEventInfo = async (req, res) => {
     eventName = selectedEvent
   }
 
-  const [metadata] = await sequelize.query(`UPDATE parevents
-SET eventInfo=JSON_REPLACE(eventInfo,"$.${eventName}",${updateType ? 1 : 0})
-WHERE clientQR='${code}';`)
+  const [metadata] = await sequelize.query(
+    `UPDATE parevents
+SET eventInfo = JSON_REPLACE(eventInfo, :jsonPath, :status)
+WHERE clientQR = :code;`,
+    {
+      replacements: {
+        jsonPath: jsonPathForKey(eventName),
+        status: updateType ? 1 : 0,
+        code,
+      },
+    }
+  )
 
   if (metadata.changedRows === 0) {
     return res.json({

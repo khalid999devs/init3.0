@@ -11,6 +11,7 @@ const { attachTokenToResponse } = require('../utils/createToken')
 const deleteFile = require('../utils/deleteFile')
 const mailer = require('../utils/sendMail')
 const sendSMS = require('../utils/sendSMS')
+const jsonPathForKey = require('../utils/jsonPath')
 
 const registration = async (req, res) => {
   if (req.mode === 'participant') {
@@ -320,8 +321,10 @@ const getEventBasedCount = async (req, res) => {
   } else if (value === 'cas') {
     ;[[countResult]] = await sequelize.query(`SELECT COUNT(*) FROM cas`)
   } else {
+    const jsonPath = jsonPathForKey(value)
     ;[[countResult]] = await sequelize.query(
-      `SELECT COUNT(*) FROM parevents WHERE JSON_EXTRACT(eventInfo, "$.${value}") =0 or JSON_EXTRACT(eventInfo, "$.${value}") =1;`
+      `SELECT COUNT(*) FROM parevents WHERE JSON_EXTRACT(eventInfo, :jsonPath) = 0 OR JSON_EXTRACT(eventInfo, :jsonPath) = 1;`,
+      { replacements: { jsonPath } }
     )
   }
 
@@ -374,8 +377,16 @@ const getAllClients = async (req, res) => {
       limit: Number(rowNum),
     })
   } else {
+    const jsonPath = jsonPathForKey(mode)
     ;[result] = await sequelize.query(
-      `SELECT par.id,par.qrCode,par.fullName,par.fb,par.institute,par.className,par.address,par.image,par.email,par.phone,par.userName, pe.eventInfo,pe.teamName,pe.paidEvent,pe.fee,pe.transactionID,pe.SubLinks,pe.SubNames,pe.roll_no FROM participants as par LEFT JOIN parevents as pe ON par.id=pe.parId WHERE JSON_EXTRACT(pe.eventInfo, "$.${mode}") =0 or JSON_EXTRACT(pe.eventInfo, "$.${mode}") =1 LIMIT ${skip},${rowNum};`
+      `SELECT par.id,par.qrCode,par.fullName,par.fb,par.institute,par.className,par.address,par.image,par.email,par.phone,par.userName, pe.eventInfo,pe.teamName,pe.paidEvent,pe.fee,pe.transactionID,pe.SubLinks,pe.SubNames,pe.roll_no FROM participants as par LEFT JOIN parevents as pe ON par.id=pe.parId WHERE JSON_EXTRACT(pe.eventInfo, :jsonPath) = 0 OR JSON_EXTRACT(pe.eventInfo, :jsonPath) = 1 LIMIT :skip, :rowNum;`,
+      {
+        replacements: {
+          jsonPath,
+          skip: Number(skip),
+          rowNum: Number(rowNum),
+        },
+      }
     )
   }
   res.json({ succeed: true, result: result })
