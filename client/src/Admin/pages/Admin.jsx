@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, useContext } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { GlobalContextConsumer } from '../../GlobalContext'
+import { Box } from '@mui/material'
 import axios from 'axios'
 import reqs from '../../data/requests'
 import Navbar from '../components/Navbar'
@@ -20,6 +20,7 @@ const Admin = () => {
     email: {},
     phone: {},
   })
+  const [isNavOpen, setIsNavOpen] = useState(false)
 
   useEffect(() => {
     axios
@@ -36,19 +37,51 @@ const Admin = () => {
       .catch((err) => {
         navigate('/adminLogin')
       })
-  }, [])
+  }, [navigate])
 
   return (
     <AdminContext.Provider
-      value={{ adminData, setAdminData, emailAndPhData, setEmailAndPhData }}
+      value={{
+        adminData,
+        setAdminData,
+        emailAndPhData,
+        setEmailAndPhData,
+        isNavOpen,
+        setIsNavOpen,
+      }}
     >
       {!isAdminLog ? (
-        <div>Loading</div>
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'grid',
+            placeItems: 'center',
+            color: 'darkBlue.main',
+            fontWeight: 600,
+          }}
+        >
+          Loading administrator workspace…
+        </Box>
       ) : (
-        <div>
+        <Box sx={{ minHeight: '100vh', backgroundColor: '#f6f8fa' }}>
           <Navbar />
-          <Outlet />
-        </div>
+          <Box
+            component='main'
+            aria-label='Administrator workspace'
+            sx={{
+              minHeight: '100vh',
+              minWidth: 0,
+              ml: isNavOpen ? '220px' : '68px',
+              width: isNavOpen ? 'calc(100% - 220px)' : 'calc(100% - 68px)',
+              transition: 'margin-left .28s ease, width .28s ease',
+              overflowX: 'hidden',
+              py: 3,
+              px: { xs: 1.5, md: 2.5 },
+            }}
+          >
+            <Outlet />
+          </Box>
+        </Box>
       )}
     </AdminContext.Provider>
   )

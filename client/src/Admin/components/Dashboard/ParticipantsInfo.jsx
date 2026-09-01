@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import axios from 'axios'
 import reqs from '../../../data/requests'
+import { UnderlinedTypo } from '../../../global_components/Typographies'
 
 const Item = styled(Box)({
   fontSize: '1rem',
@@ -19,20 +20,28 @@ const ParticipantsInfo = () => {
   ]
 
   return (
-    <Grid container spacing={1}>
-      {modifiedEvents.map((event, value) => {
-        return (
-          <Grid key={value} item md={6} xs={12} p={0.5}>
-            <Link
-              style={{ textDecoration: 'none' }}
-              to={`/admin/participants?category=${event.value}`}
-            >
-              <SingleParInfo event={event} />
-            </Link>
-          </Grid>
-        )
-      })}
-    </Grid>
+    <Box p={1}>
+      <UnderlinedTypo
+        text='Registration overview'
+        color='darkBlue.main'
+        variant='h6'
+        underlined={true}
+      />
+      <Grid container spacing={1} mt={0.5}>
+        {modifiedEvents.map((event) => {
+          return (
+            <Grid key={event.value} item md={6} xs={12} p={0.5}>
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/admin/participants?category=${event.value}`}
+              >
+                <SingleParInfo event={event} />
+              </Link>
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Box>
   )
 }
 
@@ -48,9 +57,9 @@ function SingleParInfo({ event }) {
         }
       })
       .catch((err) => {
-        setErr(err.response.data.msg)
+        setErr(err.response?.data?.msg || 'Unable to load registration count')
       })
-  }, [])
+  }, [event.value])
   return err ? (
     <Box>{err}</Box>
   ) : (
@@ -66,7 +75,7 @@ function SingleParInfo({ event }) {
           boxShadow: '0px 2px 5px 0px rgba(0,0,0,.2)',
         },
       }}
-      p={2}
+      p={1.5}
     >
       <Item sx={{ color: 'primary.main' }}>{event.name}</Item>
       <Item sx={{ color: 'info.main' }}>-</Item>

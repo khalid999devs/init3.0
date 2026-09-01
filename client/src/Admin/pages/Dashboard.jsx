@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ProfileCard from '../components/Dashboard/ProfileCard'
 import ParticipantsInfo from '../components/Dashboard/ParticipantsInfo'
@@ -17,12 +17,20 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const Dashboard = () => {
   return (
-    <StyledAdminContainer maxWidth='lg'>
+    <StyledAdminContainer maxWidth={false} sx={{ px: 0 }}>
+      <Box px={2} pb={2}>
+        <Typography variant='h4' color='secondary.main' fontWeight={700}>
+          Dashboard
+        </Typography>
+        <Typography color='text.secondary'>
+          Event operations, registrations, and organizer activity at a glance.
+        </Typography>
+      </Box>
       <Stack
         sx={{ width: '100%' }}
         direction={{ xs: 'column', tablet: 'row' }}
         spacing={{ xs: 1, sm: 1, md: 1 }}
-        pl={2}
+        px={2}
       >
         <StyledBox>
           <Item>

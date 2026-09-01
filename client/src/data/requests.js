@@ -3,7 +3,8 @@ const so = 'http://localhost:8001'
 
 export const reqImgWrapper = (src) => {
   if (!src) return null
-  return so + '/' + src
+  if (/^https?:\/\//i.test(src)) return src
+  return so + '/' + src.replace(/^\/+/, '')
 }
 
 const reqs = {

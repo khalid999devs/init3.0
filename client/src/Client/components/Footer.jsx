@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box, Container, Link as LinkR, Stack, Typography } from '@mui/material'
+import { Box, Link as LinkR, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useFetch } from '../../custom_hooks/useFetch'
@@ -13,12 +13,31 @@ import { GlobalContextConsumer } from '../../GlobalContext'
 import CallSharpIcon from '@mui/icons-material/CallSharp'
 import EmailSharpIcon from '@mui/icons-material/EmailSharp'
 import { socialIcons } from '../../data/client'
-import { RouterStyledLink, StyledLink } from '../../customStyles/StyledLinks'
+import { RouterStyledLink } from '../../customStyles/StyledLinks'
 
 const SponsorBox = styled(Box)({
-  maxWidth: '200px',
-  width: '100%',
+  flex: '1 1 190px',
+  width: '190px',
+  maxWidth: '210px',
+  height: '128px',
+  padding: '20px 24px',
+  boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
+  backgroundColor: '#fff',
+  border: '1px solid rgba(0, 0, 0, 0.08)',
+  borderRadius: '8px',
+  boxShadow: '0 3px 12px rgba(0, 0, 0, 0.08)',
 })
+
+const sponsorLogoSizes = {
+  'Brain Station 23': { maxHeight: '88px' },
+  BJIT: { maxWidth: '128px', maxHeight: '68px' },
+  'TigerIT Bangladesh': { maxWidth: '145px', maxHeight: '58px' },
+  Southtech: { maxWidth: '148px', maxHeight: '54px' },
+}
 
 const StyledRouteLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
@@ -48,16 +67,14 @@ const StyledSocialLinks = styled(LinkR)(({ theme }) => ({
 
 const Footer = () => {
   const [sponsors, setSponsors] = useState([])
-  const [alertMsg, setAlertMsg] = useState('')
+  const [, setAlertMsg] = useState('')
   const data = useFetch(reqs.GET_ALL_SPONSOR, setAlertMsg)
   const {
     appSetting: { gmails, phones },
   } = GlobalContextConsumer()
 
   const isFooterNavs = navigationLinks
-    .filter((item) => {
-      if (item.footer === true) return item
-    })
+    .filter((item) => item.footer === true)
     .slice(0, 5)
 
   const footernavigations = isFooterNavs.map((item) => {
@@ -81,23 +98,19 @@ const Footer = () => {
         gridTemplateRows: 'auto 1fr',
       }}
     >
-      {/* help bar */}
-      <Typography
-        textAlign={'center'}
-        fontWeight={'bold'}
-        fontSize={'1.1rem'}
-        color={'warning.main'}
-        mb={5}
-      >
-        Facing any problems? Go to{' '}
-        <StyledLink
-          style={{ textDecoration: 'underline', cursor: 'pointer' }}
-          target='_blank'
-          href='./faq'
+      <Stack textAlign='center' mb={5} spacing={0.5}>
+        <Typography
+          fontWeight={700}
+          fontSize='1.35rem'
+          color='secondary.main'
         >
-          FAQ
-        </StyledLink>
-      </Typography>
+          Technology partners
+        </Typography>
+        <Typography color='text.secondary'>
+          Supported by leading software and technology organizations in
+          Bangladesh.
+        </Typography>
+      </Stack>
       {/* sponsors */}
       <Stack
         alignItems={'center'}
@@ -107,18 +120,39 @@ const Footer = () => {
         flexDirection={'row'}
         mb={'50px'}
         height='min-content'
+        sx={{ px: 2 }}
       >
         {sponsors.map((sponsor, key) => {
           return (
             <SponsorBox key={key}>
-              <LinkR href={sponsor.link} target='_blank'>
-                <LazyLoadImage
-                  style={{ objectFit: 'cover' }}
-                  width='100%'
-                  height={'100%'}
+              <LinkR
+                href={sponsor.link}
+                target='_blank'
+                rel='noreferrer'
+                aria-label={`Visit ${sponsor.name}`}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Box
+                  component='img'
+                  sx={{
+                    display: 'block',
+                    width: 'auto',
+                    height: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '76px',
+                    objectFit: 'contain',
+                    objectPosition: 'center',
+                    ...sponsorLogoSizes[sponsor.name],
+                  }}
                   src={reqImgWrapper(sponsor.image)}
                   alt={sponsor.name}
-                  effect='blur'
+                  loading='lazy'
                 />
               </LinkR>
             </SponsorBox>

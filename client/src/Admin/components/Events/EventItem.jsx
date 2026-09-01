@@ -60,11 +60,17 @@ const EventItem = ({
   return (
     <Grid
       sx={{
+        width: '100%',
         borderRadius: '10px',
-        boxShadow: '0 0 10px 2px rgba(0,0,0,.2)',
-        transition: '.5s ease all',
+        overflow: 'hidden',
+        backgroundColor: 'background.paper',
+        boxShadow: '0 8px 28px rgba(20, 24, 38, .10)',
+        transition: '.25s ease all',
+        '&:hover': {
+          boxShadow: '0 12px 32px rgba(20, 24, 38, .16)',
+        },
       }}
-      m={2}
+      mb={2}
       container
     >
       <Grid item xs={12} md={2.5}>
@@ -114,7 +120,7 @@ const EventItem = ({
                   })
                   setFormMode('edit')
                 }}
-                aria-label='edit'
+                aria-label={`Edit ${name}`}
                 color='primary'
               >
                 <EditOutlined sx={{ fontSize: '1.2rem' }} color={'darkBlue'} />
@@ -132,7 +138,7 @@ const EventItem = ({
                   })
                   setFormMode('imgEdit')
                 }}
-                aria-label='edit'
+                aria-label={`Change image for ${name}`}
               >
                 <AddPhotoAlternate
                   sx={{ fontSize: '1.2rem' }}
@@ -141,7 +147,7 @@ const EventItem = ({
               </IconButton>
               <IconButton
                 onClick={() => deleteEvent(id)}
-                aria-label='edit'
+                aria-label={`Delete ${name}`}
                 color='primary'
               >
                 <Delete sx={{ fontSize: '1.2rem' }} color={'error'} />
@@ -158,40 +164,40 @@ const EventItem = ({
               fontSize: '.9rem',
             }}
           >
-            <InfoTypography label={'value'} info={value} />
-            <InfoTypography label={'type'} info={type} />
-            <InfoTypography label={'category'} info={category} />
-            <InfoTypography label={'time range'} info={timeRange} />
-            <InfoTypography label={'date'} info={date} />
-            <InfoTypography label={'place'} info={place || 'N/A'} />
-            <InfoTypography label={'max-member'} info={maxMember || 'N/A'} />
+            <InfoTypography label={'Slug'} info={value} />
+            <InfoTypography label={'Format'} info={type} />
+            <InfoTypography label={'Category'} info={category} />
+            <InfoTypography label={'Schedule'} info={timeRange} />
+            <InfoTypography label={'Date'} info={date} />
+            <InfoTypography label={'Location'} info={place || 'N/A'} />
+            <InfoTypography label={'Team limit'} info={maxMember || 'N/A'} />
             {paid && (
               <InfoTypography
                 color={'warning.dark'}
-                label={'paid'}
-                info={'true'}
+                label={'Payment'}
+                info={'Required'}
               />
             )}
 
-            <InfoTypography label={'fee'} info={fee || 'N/A'} />
+            <InfoTypography label={'Fee'} info={fee || 'Free'} />
             {team && (
               <InfoTypography
                 color={'warning.dark'}
-                label={'team'}
-                info={'true'}
+                label={'Entry'}
+                info={'Team'}
               />
             )}
             {submission && (
               <InfoTypography
                 color={'warning.dark'}
-                label={'submission'}
-                info={'true'}
+                label={'Submission'}
+                info={'Required'}
               />
             )}
 
             <span>
               <strong>
-                <i>link : </i>
+                <i>Video: </i>
               </strong>
               <StyledLink
                 style={{ wordBreak: 'break-all' }}
@@ -218,7 +224,7 @@ const EventItem = ({
                   name='on'
                 />
               }
-              label='Reg portal'
+              label='Registration open'
             />
             <FormControlLabel
               sx={{
@@ -237,7 +243,7 @@ const EventItem = ({
                   name='roll'
                 />
               }
-              label='Roll field'
+              label='Collect roll number'
             />
             {/*           
             <FormControlLabel
@@ -268,7 +274,7 @@ const EventItem = ({
                 fontStyle={'italic'}
                 pl={2}
               >
-                submission info :
+                Submission requirements
               </Typography>
               <Stack
                 sx={{ maxWidth: '90%', margin: '5px auto' }}
@@ -281,18 +287,18 @@ const EventItem = ({
                 width={'max-content'}
               >
                 <InfoTypography
-                  label={'type'}
+                  label={'Type'}
                   color='semiWhite.main'
                   info={submission.type}
                 />
                 <InfoTypography
-                  label={'name'}
+                  label={'Field'}
                   color='semiWhite.main'
                   info={submission.name}
                 />
                 {submission.type === 'file' && (
                   <InfoTypography
-                    label={'size'}
+                    label={'Max size'}
                     color='semiWhite.main'
                     info={submission.size || '500 kb'}
                   />

@@ -32,11 +32,11 @@ const ProfileCard = () => {
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, [adminData.id])
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-      <Grid item xs={5}>
+      <Grid item xs={12} sm={5}>
         <Box p={2}>
           <Avatar sx={{ bgcolor: 'darkBlue.main', margin: '5px' }}>
             {adminData.userName.charAt(0).toUpperCase()}
@@ -46,10 +46,10 @@ const ProfileCard = () => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={7}>
         <Box>
           <Typography pl={2} align='left' variant='h6' color={'darkBlue.main'}>
-            Other Admins
+            Administrator team
           </Typography>
           <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}

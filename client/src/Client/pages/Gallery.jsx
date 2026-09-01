@@ -54,7 +54,7 @@ const CGallery = () => {
       ) : (
         <Box
           sx={{
-            paddingTop: '100px',
+            paddingTop: '40px',
             maxWidth: '100%',
             width: '100%',
             margin: '0 auto',
@@ -94,6 +94,9 @@ const CGallery = () => {
                         height={'100%'}
                         style={{
                           objectFit: 'cover',
+                          objectPosition: item.BigImage.includes('info1.jpg')
+                            ? 'center 25%'
+                            : 'center',
                           transition: '0.3s all ease-in-out',
                         }}
                         src={reqImgWrapper(item.BigImage)}

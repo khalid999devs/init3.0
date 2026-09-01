@@ -84,12 +84,7 @@ const QRProfiles = () => {
 
   return (
     <Container
-      sx={{
-        padding: {
-          xs: '0 10px 0 70px',
-          xl: 0,
-        },
-      }}
+      sx={{ px: 0 }}
       maxWidth={'md'}
     >
       {alertMsg.msg && (

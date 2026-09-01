@@ -390,13 +390,15 @@ const Scanner = () => {
           <br />
           <strong>{code && `(${code})`} </strong>
         </Typography>
-        <PerInfo
-          scanInfo={parData}
-          curEvent={qrAdmin.event}
-          upDateInfo={updateEventInfo}
-          code={code}
-          manualMode={manualMode}
-        />
+        {Object.keys(parData).length > 0 && (
+          <PerInfo
+            scanInfo={parData}
+            curEvent={qrAdmin.event}
+            upDateInfo={updateEventInfo}
+            code={code}
+            manualMode={manualMode}
+          />
+        )}
       </Box>
 
       {/* admin modal */}

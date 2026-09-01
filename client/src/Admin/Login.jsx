@@ -1,8 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import reqs from '../data/requests'
-import { Alert, Box, Button, Stack, TextField } from '@mui/material'
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -24,7 +33,7 @@ const Login = () => {
       })
       .catch((err) => {
         setError(true)
-        setErrorMsg(err.response.data.msg)
+        setErrorMsg(err.response?.data?.msg || 'Unable to sign in')
       })
   }
 
@@ -41,37 +50,75 @@ const Login = () => {
   return (
     <Box
       sx={{
-        height: '100vh',
-        width: '100vw',
+        minHeight: '100vh',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        px: 2,
+        background:
+          'radial-gradient(circle at 15% 20%, rgba(0, 188, 255, .20), transparent 30%), linear-gradient(135deg, #202437 0%, #111827 100%)',
       }}
     >
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          maxWidth: '500px',
+      <Paper
+        elevation={16}
+        sx={{
           width: '100%',
-          margin: '0 auto',
+          maxWidth: 900,
+          borderRadius: 3,
+          overflow: 'hidden',
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '.9fr 1.1fr' },
         }}
       >
         <Stack
-          spacing={2}
+          justifyContent='space-between'
           sx={{
-            padding: '40px',
-            maxWidth: '500px',
-            width: '100%',
-            height: 'max-content',
-            border: '2px solid rgb(169, 199, 214)',
+            p: { xs: 4, md: 6 },
+            color: 'white',
+            background:
+              'linear-gradient(145deg, rgba(22, 168, 218, .95), rgba(21, 83, 126, .98))',
           }}
         >
-          <Alert severity={error ? 'error' : 'success'}>{errorMsg}</Alert>
+          <Box>
+            <Typography variant='overline' letterSpacing={2}>
+              Notre Dame Information Technology Club
+            </Typography>
+            <Typography variant='h3' fontWeight={800} mt={2}>
+              INIT 3.0
+            </Typography>
+            <Typography mt={1.5} sx={{ opacity: 0.86, lineHeight: 1.7 }}>
+              A focused workspace for managing events, registrations, campus
+              ambassadors, messages, and event media.
+            </Typography>
+          </Box>
+          <Typography mt={5} variant='body2' sx={{ opacity: 0.72 }}>
+            Authorized organizers only
+          </Typography>
+        </Stack>
+
+        <Stack
+          component='form'
+          onSubmit={handleSubmit}
+          spacing={2.25}
+          sx={{ p: { xs: 4, sm: 6 }, justifyContent: 'center' }}
+        >
+          <Box>
+            <Typography variant='h4' fontWeight={750} color='secondary.main'>
+              Administrator sign in
+            </Typography>
+            <Typography mt={1} color='text.secondary'>
+              Enter your organizer credentials to open the dashboard.
+            </Typography>
+          </Box>
+          <Divider />
+          {error && <Alert severity='error'>{errorMsg}</Alert>}
           <TextField
             error={error}
-            label='userName'
-            placeholder='userName'
-            variant='filled'
+            label='Username'
+            placeholder='Enter your username'
+            variant='outlined'
+            autoComplete='username'
             onChange={(e) =>
               setAdminLog((adminLog) => {
                 return { ...adminLog, userName: e.target.value }
@@ -80,10 +127,11 @@ const Login = () => {
           />
           <TextField
             error={error}
-            label='password'
+            label='Password'
             type={'password'}
-            placeholder='password'
-            variant='filled'
+            placeholder='Enter your password'
+            variant='outlined'
+            autoComplete='current-password'
             onChange={(e) =>
               setAdminLog(() => {
                 return { ...adminLog, password: e.target.value }
@@ -94,16 +142,16 @@ const Login = () => {
             variant='contained'
             type='submit'
             sx={{
-              mt: '40px',
-              maxWidth: '200px',
+              mt: 1,
               width: '100%',
-              alignSelf: 'center',
+              py: 1.25,
+              fontWeight: 700,
             }}
           >
-            Submit
+            Sign in
           </Button>
         </Stack>
-      </form>
+      </Paper>
     </Box>
   )
 }

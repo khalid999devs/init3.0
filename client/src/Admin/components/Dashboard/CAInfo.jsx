@@ -39,7 +39,7 @@ const CAInfo = () => {
   return (
     <Box p={1}>
       <UnderlinedTypo
-        text='CA Info'
+        text='Campus Ambassadors'
         color='darkBlue.main'
         variant='h6'
         underlined={true}
@@ -132,7 +132,7 @@ const CAInfo = () => {
           }}
           to='cas'
         >
-          See All {'->'}
+          View all →
         </Link>
       </Stack>
     </Box>

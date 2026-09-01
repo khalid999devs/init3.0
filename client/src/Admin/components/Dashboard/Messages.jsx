@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import { fontWeight } from '@mui/system'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -78,7 +77,7 @@ const Messages = () => {
         }}
         to='contacts'
       >
-        See All {'->'}
+        View all →
       </Link>
     </Box>
   )

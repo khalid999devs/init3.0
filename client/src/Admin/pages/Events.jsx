@@ -258,12 +258,7 @@ const Events = () => {
 
   return (
     <Container
-      sx={{
-        padding: {
-          xs: '0 10px 0 70px',
-          xl: 0,
-        },
-      }}
+      sx={{ px: 0 }}
       maxWidth={'lg'}
     >
       {alertMsg.msg && (
@@ -277,12 +272,12 @@ const Events = () => {
       )}
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <UnderlinedTypo
-          text={'Events (running Contests)'}
+          text={'Event management'}
           color={'darkBlue.main'}
           variant={'h4'}
           underlined={false}
         />
-        <IconButton onClick={() => setFormMode('create')} aria-label='edit'>
+        <IconButton onClick={() => setFormMode('create')} aria-label='Add event'>
           <AddBoxIcon sx={{ fontSize: '2rem' }} color={'info'} />
         </IconButton>
       </Stack>
@@ -299,7 +294,7 @@ const Events = () => {
           },
         }}
       >
-        {events.length < 1 && <strong>No running contest...</strong>}
+        {events.length < 1 && <strong>No active events.</strong>}
         {events.map((event, value) => {
           return (
             <EventItem
@@ -320,11 +315,11 @@ const Events = () => {
       <ModalWithForm
         text={
           formMode === 'create'
-            ? 'Add new event!!'
+            ? 'Add new event'
             : formMode === 'edit'
-            ? 'Edit event !!'
+            ? 'Edit event'
             : formMode === 'imgEdit'
-            ? 'Change Event Img!!'
+            ? 'Change event image'
             : ''
         }
         handleFormSubmit={handleFormSubmit}

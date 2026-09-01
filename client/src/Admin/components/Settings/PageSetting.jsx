@@ -166,7 +166,7 @@ const PageSetting = () => {
     <Box p={1}>
       <Stack pb={1} flexDirection='row' justifyContent={'space-between'}>
         <UnderlinedTypo
-          text={'Current Event'}
+          text={'Current event'}
           color={'secondary.light'}
           variant={'h5'}
           underlined={false}
@@ -249,14 +249,14 @@ const PageSetting = () => {
                 {setting.title}
               </Typography>
               <Typography align='left' variant='body2' color='text.secondary'>
-                <b>Title Desc :</b>
+                <b>Event summary</b>
                 <br />
                 {setting.titleDesc}
               </Typography>
 
-              <SplitTypography infos={setting.gmails} title='Gmails' />
-              <SplitTypography infos={setting.phones} title='Phones' />
-              <SplitTypography infos={setting.bkash} title='bkash no.' />
+              <SplitTypography infos={setting.gmails} title='Email addresses' />
+              <SplitTypography infos={setting.phones} title='Phone numbers' />
+              <SplitTypography infos={setting.bkash} title='bKash number' />
               <Typography
                 align='left'
                 color={'secondary.light'}
@@ -264,7 +264,7 @@ const PageSetting = () => {
                 fontWeight={500}
                 mt={1}
               >
-                intro video:{' '}
+                Intro video:{' '}
                 <StyledLink href={setting.intro} target='_blank'>
                   {setting.intro && setting.intro.slice(0, 25)}...
                 </StyledLink>
@@ -287,7 +287,7 @@ const PageSetting = () => {
                       name='on'
                     />
                   }
-                  label='CA reg permit'
+                  label='CA registration'
                 />
                 <FormControlLabel
                   control={
@@ -299,7 +299,7 @@ const PageSetting = () => {
                       name='on'
                     />
                   }
-                  label='Reg permit (All)'
+                  label='Participant registration'
                 />
                 <FormControlLabel
                   control={
@@ -311,13 +311,13 @@ const PageSetting = () => {
                       name='on'
                     />
                   }
-                  label='Search permit'
+                  label='Profile search'
                 />
               </Stack>
             </CardActions>
           </>
         ) : (
-          `No event launched!!`
+          'No event has been launched yet.'
         )}
       </Card>
 
@@ -325,11 +325,11 @@ const PageSetting = () => {
       <ModalWithForm
         text={
           formMode === 'create'
-            ? 'Launch an Event!!'
+            ? 'Launch an event'
             : formMode === 'edit'
-            ? 'Edit Page Setting!!'
+            ? 'Edit event settings'
             : formMode === 'updateImg'
-            ? 'Update Image!!'
+            ? 'Update banner image'
             : ''
         }
         handleFormSubmit={handleFormSubmit}
@@ -355,7 +355,7 @@ const PageSetting = () => {
               />
               <InputTextField
                 errMsg={err.phones}
-                label={'Phones'}
+                label={'Phone numbers'}
                 name={'phones'}
                 value={values.phones}
                 onChange={handleInputChange}
@@ -363,7 +363,7 @@ const PageSetting = () => {
                 placeholder='01XXXXXXXXX , 01XXXXXXXXXX'
               />
               <InputTextField
-                label={'bkash no.'}
+                label={'bKash number'}
                 name={'bkash'}
                 value={values.bkash}
                 required={false}
@@ -371,7 +371,7 @@ const PageSetting = () => {
                 placeholder='01XXXXXXXXX , 01XXXXXXXXXX'
               />
               <InputTextField
-                label={'intro video link'}
+                label={'Intro video link'}
                 name={'intro'}
                 value={values.intro}
                 required={false}
@@ -384,7 +384,7 @@ const PageSetting = () => {
             <Stack width={'50%'}>
               <InputTextField
                 errMsg={err.gmails}
-                label={'Gmails'}
+                label={'Email addresses'}
                 name={'gmails'}
                 value={values.gmails}
                 onChange={handleInputChange}

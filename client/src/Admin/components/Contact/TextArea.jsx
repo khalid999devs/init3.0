@@ -1,16 +1,16 @@
-import { Button, Input } from '@mui/material'
+import { Button, Chip, Stack, TextField } from '@mui/material'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reqs from '../../../data/requests'
 import HourglassTopIcon from '@mui/icons-material/HourglassTop'
 
 export const TextArea = ({ email, name, replied }) => {
   const [value, setValue] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isReplied, setIsReplied] = useState(false)
+  const [isReplied, setIsReplied] = useState(Boolean(replied))
 
-  useState(() => {
-    setIsReplied(replied)
+  useEffect(() => {
+    setIsReplied(Boolean(replied))
   }, [replied])
 
   const handleFormSubmit = (e) => {
@@ -36,54 +36,52 @@ export const TextArea = ({ email, name, replied }) => {
       })
   }
   return (
-    <form
+    <Stack
+      component='form'
       onSubmit={handleFormSubmit}
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        columnGap: '5px',
-      }}
+      spacing={1}
+      alignItems='flex-end'
     >
       {isReplied ? (
-        <strong>replied</strong>
+        <Chip
+          label='Replied'
+          color='success'
+          variant='outlined'
+          size='small'
+          sx={{ alignSelf: 'flex-start', fontWeight: 700 }}
+        />
       ) : (
         <>
-          <Input
-            disableUnderline
-            label={''}
-            name={'ans'}
-            variant={'outlined'}
+          <TextField
+            name='answer'
+            placeholder={`Reply to ${name}`}
+            variant='outlined'
             value={value}
             onChange={(e) => {
               setValue(e.target.value)
             }}
             multiline
+            minRows={3}
+            fullWidth
+            size='small'
             sx={{
-              height: '100%',
-              width: '100%',
-              backgroundColor: 'semiWhite.main',
-              minHeight: '100px',
-              borderRadius: '10px',
+              backgroundColor: '#f8fafb',
               fontSize: '.85rem',
-              p: 1,
               fontWeight: '500',
             }}
           />
-          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-            <Button
-              sx={{ display: 'inline' }}
-              type={'submit'}
-              size={'small'}
-              variant='outlined'
-              color='darkBlue'
-              disabled={loading}
-              endIcon={loading ? <HourglassTopIcon /> : ''}
-            >
-              send
-            </Button>
-          </div>
+          <Button
+            type='submit'
+            size='small'
+            variant='contained'
+            color='primary'
+            disabled={loading || !value.trim()}
+            endIcon={loading ? <HourglassTopIcon /> : null}
+          >
+            Send reply
+          </Button>
         </>
       )}
-    </form>
+    </Stack>
   )
 }

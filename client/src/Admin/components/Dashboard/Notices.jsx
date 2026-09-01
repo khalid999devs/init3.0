@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import reqs from '../../../data/requests'
 import { UnderlinedTypo } from '../../../global_components/Typographies'
+import ReactMarkdown from 'react-markdown'
 
 const Notices = () => {
   const [notices, setNotices] = useState([])
@@ -35,11 +36,11 @@ const Notices = () => {
           ? err
           : notices.map((notice, value) => {
               return (
-                <Typography
-                  align='left'
-                  sx={{}}
-                  mb={2}
-                  component={'p'}
+                <Stack
+                  direction='row'
+                  alignItems='flex-start'
+                  spacing={0.75}
+                  mb={1.5}
                   key={notice.id}
                 >
                   <Typography
@@ -47,10 +48,19 @@ const Notices = () => {
                     color={'primary'}
                     sx={{ fontWeight: 'bolder' }}
                   >
-                    {value + 1}
+                    {value + 1}.
                   </Typography>
-                  . {notice.message}
-                </Typography>
+                  <Box
+                    sx={{
+                      flex: 1,
+                      color: 'text.secondary',
+                      textAlign: 'left',
+                      '& p': { m: 0, lineHeight: 1.45 },
+                    }}
+                  >
+                    <ReactMarkdown>{notice.message}</ReactMarkdown>
+                  </Box>
+                </Stack>
               )
             })}
       </Box>
@@ -74,7 +84,7 @@ const Notices = () => {
           }}
           to='setting'
         >
-          See All {'->'}
+          View all →
         </Link>
       </Stack>
     </Box>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { LogoutOutlined, MenuBookOutlined } from '@mui/icons-material'
 import {
@@ -24,12 +23,9 @@ const StyledMenuLink = styled(ListItem)({
 })
 
 const Navbar = () => {
-  const [isNavOpen, setIsNavOpen] = useState(false)
   const location = useLocation()
-  const { adminData } = AdminContextConsumer()
+  const { adminData, isNavOpen, setIsNavOpen } = AdminContextConsumer()
   const navigate = useNavigate()
-
-  useEffect(() => {}, [location.pathname])
 
   const handleLogout = () => {
     axios
@@ -50,9 +46,17 @@ const Navbar = () => {
         zIndex: '1000',
         backgroundColor: 'primary.main',
         position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '220px',
         height: '100vh',
-        transition: '.5s all ease',
-        transform: `translateX(${isNavOpen ? '0%' : '-70%'})`,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        transition: 'transform .28s ease',
+        transform: isNavOpen
+          ? 'translateX(0)'
+          : 'translateX(calc(-100% + 68px))',
+        boxShadow: isNavOpen ? '8px 0 24px rgba(20, 24, 38, .14)' : 'none',
       }}
     >
       <Box
@@ -70,6 +74,8 @@ const Navbar = () => {
             color: 'info.light',
           }}
           aria-label='open-close'
+          aria-expanded={isNavOpen}
+          title={isNavOpen ? 'Collapse navigation' : 'Expand navigation'}
           size='large'
           onClick={() => setIsNavOpen(!isNavOpen)}
         >
@@ -85,6 +91,7 @@ const Navbar = () => {
         sx={{
           padding: '10px',
           margin: '5px 5px',
+          minHeight: '112px',
         }}
       >
         <Avatar
@@ -93,7 +100,7 @@ const Navbar = () => {
           {adminData.userName.slice(0, 1).toUpperCase()}
         </Avatar>
         <Typography
-          variant='p'
+          component='p'
           sx={{ fontSize: '1.2rem' }}
           color={'primary.light'}
         >
@@ -111,11 +118,13 @@ const Navbar = () => {
               <Link
                 style={{
                   textDecoration: 'none',
+                  width: '100%',
                 }}
                 to={item.to}
               >
                 <ListItemButton
                   sx={{
+                    minHeight: '52px',
                     color: 'info.main',
                     '&:hover': {
                       backgroundColor: 'secondary.main',
@@ -129,13 +138,15 @@ const Navbar = () => {
                 >
                   <ListItemText
                     sx={{
-                      width: '100px',
+                      width: '112px',
+                      flexShrink: 0,
                     }}
                     primary={item.title}
                   />
                   <ListItemIcon
                     sx={{
                       color: 'info.main',
+                      minWidth: '40px',
                       display: 'flex',
                       justifyContent: 'flex-end',
                     }}
@@ -152,6 +163,7 @@ const Navbar = () => {
         <StyledMenuLink disablePadding>
           <ListItemButton
             sx={{
+              minHeight: '52px',
               color: 'info.main',
               '&:hover': {
                 backgroundColor: 'secondary.main',
@@ -161,13 +173,15 @@ const Navbar = () => {
           >
             <ListItemText
               sx={{
-                width: '100px',
+                width: '112px',
+                flexShrink: 0,
               }}
               primary={'Logout'}
             />
             <ListItemIcon
               sx={{
                 color: 'info.main',
+                minWidth: '40px',
                 display: 'flex',
                 justifyContent: 'flex-end',
                 paddingRight: '5px',

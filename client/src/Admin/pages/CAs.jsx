@@ -152,12 +152,7 @@ const CAs = () => {
   return (
     <Container
       maxWidth='xl'
-      sx={{
-        padding: {
-          xs: '0 10px 0 50px',
-          xl: 0,
-        },
-      }}
+      sx={{ px: 0 }}
     >
       {alertMsg.msg && (
         <AlertModal
@@ -173,8 +168,8 @@ const CAs = () => {
         component={Paper}
         sx={{
           marginBottom: '150px',
-          minWidth: (theme) => theme.breakpoints.values.lg,
-          width: (theme) => theme.breakpoints.values.xl,
+          width: '100%',
+          overflowX: 'auto',
         }}
       >
         <Table size='small' aria-label='simple table'>

@@ -17,10 +17,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import axios from 'axios'
 import ReactMarkdown from 'react-markdown'
 
-const StyledRLink = styled(RLink)(({ theme }) => ({
-  transform: 'translateY(50px)',
-  position: 'relative',
-  marginTop: '10px',
+const StyledRLink = styled(RLink)(() => ({
+  display: 'inline-block',
+  marginTop: '8px',
 }))
 
 const Event = () => {
@@ -100,7 +99,7 @@ const Event = () => {
               {regPortal && (
                 <Box
                   sx={{
-                    margin: '20px auto 10px auto',
+                    margin: '8px auto 18px auto',
                     display: 'grid',
                     placeItems: 'center',
                   }}
@@ -126,7 +125,7 @@ const Event = () => {
                         color='primary'
                         size='large'
                       >
-                        Participate!
+                        Register for this event
                       </Button>
                     </StyledRLink>
                   </Box>
@@ -140,17 +139,17 @@ const Event = () => {
                     }}
                     textAlign={'center'}
                   >
-                    (Click to participate)
+                    Registration is open
                   </Typography>
                 </Box>
               )}
               <Stack
                 mt={2}
                 sx={{
-                  paddingTop: '100px',
+                  paddingTop: '36px',
                   rowGap: {
                     xs: '40px',
-                    md: '70px',
+                    md: '52px',
                   },
                 }}
               >
@@ -246,7 +245,7 @@ const Event = () => {
                         letterSpacing: '2px',
                       }}
                     >
-                      Contest Rules:
+                      Event rules
                     </Typography>
                     {rules &&
                       rules.split('~~').map((rule, key) => {
@@ -421,7 +420,7 @@ const Event = () => {
                   textAlign={'center'}
                   sx={{ wordBreak: 'break-word' }}
                 >
-                  So, what are you waiting for?
+                  Ready to take part?
                 </Typography>
                 <RLink
                   to={`/participation/${
@@ -441,7 +440,7 @@ const Event = () => {
                     variant='contained'
                     size='large'
                   >
-                    Click me to Participate!
+                    Register for this event
                   </Button>
                 </RLink>
               </Box>

@@ -111,13 +111,8 @@ const Messages = () => {
     <Container
       maxWidth='md'
       sx={{
-        padding: {
-          xs: '50px 10px 0 70px',
-          xl: 0,
-        },
-        paddingTop: {
-          xl: '50px',
-        },
+        px: 0,
+        pt: 3,
         minHeight: '100vh',
       }}
     >

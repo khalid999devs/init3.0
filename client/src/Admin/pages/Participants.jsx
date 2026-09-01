@@ -67,10 +67,10 @@ const Participants = () => {
       let eventObj = JSON.parse(item.eventInfo)
       if (mode === 'allPar') {
         for (let key in eventObj) {
-          if (eventObj[key] == 1) scannedData = scannedData + 1
+          if (eventObj[key] === 1) scannedData = scannedData + 1
         }
       } else if (mode) {
-        if (eventObj[mode] == 1) scannedData = scannedData + 1
+        if (eventObj[mode] === 1) scannedData = scannedData + 1
       }
     })
     setScanned(scannedData)
@@ -89,7 +89,7 @@ const Participants = () => {
           let count = res.data.result
           if (Number(count) < 1) {
             setDataCount(0)
-            throw 'No data'
+            throw new Error('No data')
           }
           setDataCount(count)
           setPages(Math.ceil(count / rows))
@@ -112,10 +112,14 @@ const Participants = () => {
         }
       })
       .catch((err) => {
-        if (err === 'No data') {
-          setAlertMsg({ msg: err, severity: 'error' })
+        if (err.message === 'No data') {
+          setData([])
+          setAlertMsg({ msg: err.message, severity: 'error' })
         } else {
-          setAlertMsg({ msg: err.response.data.msg, severity: 'error' })
+          setAlertMsg({
+            msg: err.response?.data?.msg || 'Unable to load participants.',
+            severity: 'error',
+          })
         }
       })
   }, [pgNo, mode, rows])
@@ -134,15 +138,7 @@ const Participants = () => {
   }
 
   return (
-    <Container
-      maxWidth='xl'
-      sx={{
-        padding: {
-          xs: '0 10px 0 50px',
-          xl: 0,
-        },
-      }}
-    >
+    <Container maxWidth={false} sx={{ px: 0 }}>
       {alertMsg.msg && (
         <AlertModal
           openMode={true}
@@ -153,29 +149,50 @@ const Participants = () => {
         />
       )}
 
+      <Stack mb={2} spacing={0.5}>
+        <Typography variant='h4' color='secondary.main' fontWeight={700}>
+          Participants
+        </Typography>
+        <Typography color='text.secondary'>
+          Review registration, attendance, team, payment, and submission data.
+        </Typography>
+      </Stack>
+
       <TableContainer
         component={Paper}
         sx={{
-          marginBottom: '150px',
-          minWidth: (theme) => theme.breakpoints.values.lg,
-          width: (theme) => theme.breakpoints.values.xl,
+          width: '100%',
+          maxHeight: 'calc(100vh - 225px)',
+          overflow: 'auto',
+          borderRadius: 2,
+          boxShadow: '0 8px 28px rgba(20, 24, 38, .10)',
         }}
       >
-        <Table size='small' aria-label='simple table'>
-          <TableHead>
+        <Table
+          stickyHeader
+          size='small'
+          aria-label='Participant operations table'
+          sx={{ minWidth: '1320px' }}
+        >
+          <TableHead
+            sx={{
+              '& th': {
+                backgroundColor: 'primary.main',
+                color: 'semiWhite.main',
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+              },
+            }}
+          >
             <TableRow>
-              <TableCell>SL</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>QR Code</TableCell>
-              <TableCell>Class</TableCell>
-              <TableCell>Institute</TableCell>
-              <TableCell>Roll</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Email & FB</TableCell>
-              <TableCell>Phone</TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>Participant</TableCell>
+              <TableCell>QR / Class</TableCell>
+              <TableCell>Institution</TableCell>
+              <TableCell>Contact</TableCell>
               <TableCell>Events</TableCell>
-              <TableCell>Team Info</TableCell>
-              <TableCell>Payment Info</TableCell>
+              <TableCell>Team</TableCell>
+              <TableCell>Payment</TableCell>
               <TableCell>Submissions</TableCell>
             </TableRow>
           </TableHead>
@@ -195,8 +212,10 @@ const Participants = () => {
               return (
                 <TableRow
                   key={value}
+                  hover
                   sx={{
                     '&:last-child td, &:last-child th': { border: 0 },
+                    '& td': { verticalAlign: 'top', py: 1.5 },
                   }}
                 >
                   <StyledCell component='th' scope='row'>
@@ -209,38 +228,56 @@ const Participants = () => {
                       userName={par.userName}
                     />
                   </StyledCell>
-                  <StyledCell>{par.qrCode}</StyledCell>
-                  <StyledCell>{par.className}</StyledCell>
-                  <StyledCell>{par.institute}</StyledCell>
-                  <StyledCell>{par.roll_no || ''}</StyledCell>
-
-                  <StyledCell>{par.address}</StyledCell>
-                  <StyledCell sx={{ width: '180px' }}>
+                  <StyledCell sx={{ minWidth: '125px' }}>
+                    <Typography fontSize='12px' fontWeight={700}>
+                      {par.qrCode}
+                    </Typography>
+                    <Typography fontSize='12px' color='text.secondary'>
+                      {par.className}
+                    </Typography>
+                  </StyledCell>
+                  <StyledCell sx={{ minWidth: '160px' }}>
+                    <Typography fontSize='12px' fontWeight={700}>
+                      {par.institute}
+                    </Typography>
+                    <Typography fontSize='12px' color='text.secondary'>
+                      {par.roll_no ? `Roll ${par.roll_no}` : 'Roll not set'}
+                    </Typography>
+                    <Typography fontSize='11px' color='text.secondary'>
+                      {par.address}
+                    </Typography>
+                  </StyledCell>
+                  <StyledCell sx={{ minWidth: '190px' }}>
                     <Typography
-                      fontSize={'13px'}
+                      fontSize='12px'
                       sx={{ wordBreak: 'break-all' }}
                     >
                       {par.email}
                     </Typography>
-                    <Stack flexDirection={'row'} columnGap={1}>
+                    <Typography fontSize='12px'>{par.phone}</Typography>
+                    <Stack flexDirection='row' columnGap={1} mt={0.5}>
                       <Link
                         to={`/admin/messages?email=${par.email}&name=${par.fullName}&phone=${par.phone}`}
                         style={{ color: 'brown' }}
+                        aria-label={`Message ${par.fullName}`}
                       >
-                        <EmailOutlined />
+                        <EmailOutlined fontSize='small' />
                       </Link>
-                      <a target={'_blank'} href={par.fb}>
-                        <Facebook color='secondary' />
+                      <a
+                        target='_blank'
+                        rel='noreferrer'
+                        href={par.fb}
+                        aria-label={`${par.fullName} on Facebook`}
+                      >
+                        <Facebook color='secondary' fontSize='small' />
                       </a>
+                      <Link
+                        to={`/admin/messages?email=${par.email}&name=${par.fullName}&phone=${par.phone}`}
+                        aria-label={`Call ${par.fullName}`}
+                      >
+                        <Phone color='success' fontSize='small' />
+                      </Link>
                     </Stack>
-                  </StyledCell>
-                  <StyledCell>
-                    {par.phone} <br />{' '}
-                    <Link
-                      to={`/admin/messages?email=${par.email}&name=${par.fullName}&phone=${par.phone}`}
-                    >
-                      <Phone color='success' />
-                    </Link>
                   </StyledCell>
                   <StyledCell>
                     {eventsInfoIterate(JSON.parse(par.eventInfo)).map(
@@ -359,7 +396,7 @@ const Participants = () => {
         </Table>
       </TableContainer>
 
-      {/* fixed ops */}
+      {/* table controls */}
       <FooterFixedBox>
         <Stack
           sx={{
@@ -455,7 +492,7 @@ const Participants = () => {
             />
             <EditModeModal
               openMode={qrCheckMode}
-              text='Are you sure to enable edit mode? Be careful In this mode. Every click matters'
+              text='Enable edit mode? Changes made in this mode take effect immediately.'
             />
           </Stack>
 

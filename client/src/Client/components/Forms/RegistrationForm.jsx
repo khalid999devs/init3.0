@@ -251,7 +251,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
                 },
               }}
             >
-              Sign Up as :
+              Sign up as
             </FormLabel>
             <RadioGroup
               aria-labelledby='mode-change-radio'
@@ -264,7 +264,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
               <StyledFormControle
                 value='participant'
                 control={<Radio sx={{ color: 'semiWhite.light' }} />}
-                label='participant'
+                label='Participant'
                 onChange={(e) => {
                   mode !== 'participant' &&
                     navigate(`/registration/${e.target.value}`, {
@@ -398,7 +398,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
             pt={4}
           >
             <CustomInField
-              label={'Email ID'}
+              label={'Email address'}
               value={values.email}
               name={'email'}
               type={'email'}
@@ -432,7 +432,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
               placeholder={'01XXXXXXXXX'}
             />
             <CustomInField
-              label={'Institute'}
+              label={'Institution'}
               value={values.institute}
               name={'institute'}
               onChange={handleInputChange}
@@ -459,7 +459,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
               msg={errors.className}
             />
             <CustomInField
-              label={'Fb link'}
+              label={'Facebook profile'}
               value={values.fb}
               type={'url'}
               name={'fb'}
@@ -481,7 +481,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
             )}
             {/* passwords */}
             <CustomInField
-              label={'password'}
+              label={'Password'}
               value={values.password}
               name={'password'}
               type={'password'}
@@ -506,7 +506,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
               msg={errors.password}
             />
             <CustomInField
-              label={'confirm Password'}
+              label={'Confirm password'}
               value={values.cPassword}
               name={'cPassword'}
               type={'password'}
@@ -566,7 +566,7 @@ const RegistrationForm = ({ mode, redirectEvent }) => {
             }}
             disabled={!cookieChecked}
           >
-            submit
+            Create account
           </Button>
         </Stack>
       </form>

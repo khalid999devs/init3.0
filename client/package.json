@@ -29,6 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "capture:screenshots": "node scripts/capture-screenshots.cjs",
+    "capture:qr-mobile": "node scripts/capture-qr-mobile.cjs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
   }
 }

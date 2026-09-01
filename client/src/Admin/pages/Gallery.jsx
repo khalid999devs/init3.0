@@ -129,12 +129,7 @@ const Gallery = () => {
 
   return (
     <Container
-      sx={{
-        padding: {
-          xs: '0 10px 0 70px',
-          xl: 0,
-        },
-      }}
+      sx={{ px: 0 }}
       maxWidth={'lg'}
     >
       {alertMsg.msg && (
@@ -148,12 +143,15 @@ const Gallery = () => {
       )}
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <UnderlinedTypo
-          text={'Gallery Images'}
+          text={'Gallery'}
           color={'secondary.light'}
           variant={'h4'}
           underlined={false}
         />
-        <IconButton onClick={() => setFormMode('create')} aria-label='edit'>
+        <IconButton
+          onClick={() => setFormMode('create')}
+          aria-label='Add gallery image'
+        >
           <AddPhotoAlternate sx={{ fontSize: '2rem' }} color={'success'} />
         </IconButton>
       </Stack>
@@ -188,9 +186,9 @@ const Gallery = () => {
       <ModalWithForm
         text={
           formMode === 'create'
-            ? 'Add Gallery Image!!'
+            ? 'Add gallery image'
             : formMode === 'edit'
-            ? 'Edit Gallery Image !!'
+            ? 'Edit gallery image'
             : ''
         }
         handleFormSubmit={handleGallerySubmit}
